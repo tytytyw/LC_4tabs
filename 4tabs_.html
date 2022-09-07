@@ -1785,6 +1785,7 @@
             }
 
             const touchMove = (e) => {
+                const activeViewport = document.querySelector(`#${activeTab} .app`)
 
                 const offsetY = (startY - e.touches[0].clientY) / windowHeight * -100 / 4;
                 const offsetX = (startX - e.touches[0].clientX) / windowWidth * -100 / 2;
@@ -1805,7 +1806,7 @@
                         }
                         // движение сверху вниз когда страница не проскролена
                     } else if (startY - e.touches[0].clientY < 0) {
-                        if (document.querySelector('.app').scrollTop) {
+                        if (activeViewport.scrollTop) {
                             refreshRef.style.top = 0;
                             returnBackRef.style.left = 0;
                             startX = null;
@@ -1817,7 +1818,7 @@
                 }
 
                 // движение сверху вниз когда страница не проскролена
-                if (moveDirection === 'y' && document.querySelector('.app').scrollTop === 0) {
+                if (moveDirection === 'y' && activeViewport.scrollTop === 0) {
                     // запуск анимации иконки
                     refreshRef.style.top = `${offsetY > 10 ? 10 : offsetY}%`
                     refreshRef.style.transform = `translateY(-100%) rotate(${offsetY > 6 ? 6 : offsetY}rad)`
@@ -1837,8 +1838,9 @@
             }
 
             const touchEnd = (e) => {
+                const activeViewport = document.querySelector(`#${activeTab} .app`)
                 if (moveDirection === 'y') {
-                    if (document.querySelector('.app').scrollTop) return false
+                    if (activeViewport.scrollTop) return false
                     // движение длилось более 100px
                     if (startY - e.changedTouches[0].clientY < -100) {
                         // событие перехода
