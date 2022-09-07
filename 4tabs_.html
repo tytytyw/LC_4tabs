@@ -15841,7 +15841,8 @@
             const documentTemplate = (documentData) => (`
                 <div class="requests__item">
                     <div class="request-row request-row_bold">
-                        
+                        <a class="request-row__link" href="${documentData.id}"
+                            id="${documentData.id}"></a>
                         <div class="request-row__inner">
                             <div class="request-row__header">
                                 <div class="request-row__title">
