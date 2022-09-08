@@ -1939,19 +1939,6 @@
                 {
                     id: 'id1',
                     statusIcon: 'approved',
-                    title: 'Заявление: на получение мат.помощи',
-                    createDate: {
-                        text: 'Создан:',
-                        date: '26.08.2022'
-                    },
-                    updateDate: {
-                        text: 'Изменен статус:',
-                        date: '26.08.2022'
-                    }
-                },
-                {
-                    id: 'id1',
-                    statusIcon: 'approved',
                     title: 'Заявление: на получение мат.помощи13',
                     createDate: {
                         text: 'Создан:',
@@ -15868,22 +15855,24 @@
                     // target.innerHTML = ""
                     visibleDocuments.forEach(document => target.innerHTML += documentTemplate(document))
 
-                    if (documents.length > page * perPage) {
-                        const nextPageButtonWrapper = document.createElement('div');
-                        const nextPageButton = document.createElement('button');
-                        nextPageButtonWrapper.className = 'button-wrapper'
-                        nextPageButton.textContent = 'Отобразить больше';
-                        nextPageButton.className = 'button button_blue button_solid button_small next-page-button';
-                        nextPageButton.id = `${target.id}_next-page-button`;
-                        nextPageButton.setAttribute("data-next-page", page + 1);
-                        nextPageButtonWrapper.appendChild(nextPageButton)
-                        target.appendChild(nextPageButtonWrapper)
-                        nextPageButton.onclick = () => {
-                            target.querySelector(`#${target.id}_next-page-button`).parentElement.remove()
-                            fillTable(target, documents, page + 1, perPage)
-                        }
-
+                    const nextPageButtonWrapper = document.createElement('div');
+                    const nextPageButton = document.createElement('button');
+                    nextPageButtonWrapper.className = 'button-wrapper'
+                    nextPageButton.textContent = 'Отобразить больше';
+                    nextPageButton.className = 'button button_blue button_solid button_small next-page-button';
+                    nextPageButton.id = `${target.id}_next-page-button`;
+                    nextPageButton.setAttribute("data-next-page", page + 1);
+                    nextPageButtonWrapper.appendChild(nextPageButton)
+                    target.appendChild(nextPageButtonWrapper)
+                    nextPageButton.onclick = () => {
+                        target.querySelector(`#${target.id}_next-page-button`).parentElement.remove()
+                        fillTable(target, documents, page + 1, perPage)
                     }
+
+                    if (documents.length <= page * perPage) {
+                        target.querySelector(`#${target.id}_next-page-button`) && target.querySelector(`#${target.id}_next-page-button`).parentElement.remove();
+                    }
+
                 }
                 if (!documents || documents.length === 0) {
                     // вывод инфо о том, что таблица пустая
