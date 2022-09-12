@@ -77,6 +77,7 @@
             min-width: 100vw;
             padding: 5px 5px 0;
             box-sizing: border-box;
+            background: #f9fafc;
         }
 
         section.visible {
@@ -912,14 +913,32 @@
         }
 
         .request-row::after {
-            content: "";
-            background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDggMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xLjI5IDkuNDYyNTNMNS4xNyA1LjU4MjUzTDEuMjkgMS43MDI1M0MwLjg5OTk5OCAxLjMxMjUzIDAuODk5OTk4IDAuNjgyNTMxIDEuMjkgMC4yOTI1MzFDMS42OCAtMC4wOTc0Njk1IDIuMzEgLTAuMDk3NDY5NSAyLjcgMC4yOTI1MzFMNy4yOSA0Ljg4MjUzQzcuNjggNS4yNzI1MyA3LjY4IDUuOTAyNTMgNy4yOSA2LjI5MjUzTDIuNyAxMC44ODI1QzIuMzEgMTEuMjcyNSAxLjY4IDExLjI3MjUgMS4yOSAxMC44ODI1QzAuOTA5OTk4IDEwLjQ5MjUgMC44OTk5OTggOS44NTI1MyAxLjI5IDkuNDYyNTNaIiBmaWxsPSIjQTZCQ0NDIi8+Cjwvc3ZnPgo=) center no-repeat;
             position: absolute;
             right: 0;
             top: 50%;
             width: 24px;
             height: 24px;
             margin-top: -12px
+        }
+
+        .section:not(.multi-select) .request-row::after {
+            content: "";
+            background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDggMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xLjI5IDkuNDYyNTNMNS4xNyA1LjU4MjUzTDEuMjkgMS43MDI1M0MwLjg5OTk5OCAxLjMxMjUzIDAuODk5OTk4IDAuNjgyNTMxIDEuMjkgMC4yOTI1MzFDMS42OCAtMC4wOTc0Njk1IDIuMzEgLTAuMDk3NDY5NSAyLjcgMC4yOTI1MzFMNy4yOSA0Ljg4MjUzQzcuNjggNS4yNzI1MyA3LjY4IDUuOTAyNTMgNy4yOSA2LjI5MjUzTDIuNyAxMC44ODI1QzIuMzEgMTEuMjcyNSAxLjY4IDExLjI3MjUgMS4yOSAxMC44ODI1QzAuOTA5OTk4IDEwLjQ5MjUgMC44OTk5OTggOS44NTI1MyAxLjI5IDkuNDYyNTNaIiBmaWxsPSIjQTZCQ0NDIi8+Cjwvc3ZnPgo=) center no-repeat;
+        }
+
+        .section.multi-select .request-row::after {
+            content: '';
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,.3);
+            background-color: #fff;
+            width: 12px;
+            height: 12px;
+            margin-top: -6px;
+            right: 6px;
+        }
+
+        .section.multi-select .request-row.selected::after {
+            background-color: #0aa9ff;
         }
 
         .request-row__link {
@@ -1236,6 +1255,29 @@
             margin-right: auto;
             display: block;
         }
+
+        .buttons-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .button_multi-select {
+            margin-bottom: 8px;
+        }
+
+        #multi-select-button::after {
+            content: 'Выбрать несколько'
+        }
+
+        #multi-select-button.active {
+            background-color: #fb4e4e;
+            border-color: #fb4e4e;
+        }
+
+        #multi-select-button.active::after {
+            content: 'Отменить';
+        }
     </style>
 </head>
 
@@ -1293,10 +1335,14 @@
                                 <div class="section__header">
                                     <div class="section__title">На подпись</div>
                                 </div>
-
+                                <div class="button-wrapper buttons-wrapper">
+                                <button id="multi-select-button" class="button button_blue button_solid button_small button_multi-select"></button>
+                                <a class="button button_blue button_solid button_small button_multi-select send-multi-links">Подписать и отправить</a>
+                            </div>
                                 <div class="section__box">
+
                                     <div class="requests">
-                                        <div class="requests__list" id="outbox-table_actual">
+                                        <div class="requests__list" id="inbox-table_actual">
                                         </div>
                                     </div>
                                 </div>
@@ -1311,7 +1357,7 @@
 
                                 <div class="section__box">
                                     <div class="requests">
-                                        <div class="requests__list" id="outbox-table_history">
+                                        <div class="requests__list" id="inbox-table_history">
                                         </div>
                                     </div>
                                 </div>
@@ -1335,7 +1381,7 @@
 
                                 <div class="section__box">
                                     <div class="requests">
-                                        <div class="requests__list" id="inbox-table">
+                                        <div class="requests__list" id="outbox-table">
                                         </div>
                                     </div>
                                 </div>
@@ -1508,7 +1554,8 @@
         // inbox = входящие
         // outbox = исходящие
         // profile = профиль
-        let activeTab = "inbox-outbox";
+        // TODO:
+        let activeTab = "inbox";
 
 
         // Массивы документов
@@ -1518,7 +1565,7 @@
             // на подпись
             actual: [
                 {
-                    id: 'id7',
+                    id: 'id_1',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени1',
                     createDate: {
@@ -1531,7 +1578,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_2',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени2',
                     createDate: {
@@ -1544,7 +1591,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_3',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени3',
                     createDate: {
@@ -1557,7 +1604,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_4',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени4',
                     createDate: {
@@ -1570,7 +1617,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_5',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени5',
                     createDate: {
@@ -1583,7 +1630,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_6',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени6',
                     createDate: {
@@ -1596,7 +1643,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_7',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени7',
                     createDate: {
@@ -1609,7 +1656,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_8',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени8',
                     createDate: {
@@ -1622,7 +1669,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_9',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени9',
                     createDate: {
@@ -1635,7 +1682,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_10',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени10',
                     createDate: {
@@ -1648,7 +1695,7 @@
                     }
                 },
                 {
-                    id: 'id7',
+                    id: 'id_11',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени11',
                     createDate: {
@@ -1661,7 +1708,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_12',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени12',
                     createDate: {
@@ -1674,7 +1721,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_13',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени13',
                     createDate: {
@@ -1687,7 +1734,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_14',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени14',
                     createDate: {
@@ -1700,7 +1747,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_15',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени15',
                     createDate: {
@@ -1713,7 +1760,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_16',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени16',
                     createDate: {
@@ -1726,7 +1773,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_17',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени17',
                     createDate: {
@@ -1739,7 +1786,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_18',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени18',
                     createDate: {
@@ -1752,7 +1799,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_19',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени19',
                     createDate: {
@@ -1765,7 +1812,7 @@
                     }
                 },
                 {
-                    id: 'id8',
+                    id: 'id_20',
                     statusIcon: '',
                     title: 'Заявление: об установлении режима неполного рабочего времени20',
                     createDate: {
@@ -15822,29 +15869,74 @@
                 link.onclick = (e) => linkClickHandler(e)
             })
 
+            const multiLinsRequestButton = document.querySelector('.send-multi-links');
+            multiLinsRequestButton.style.display = 'none';
+            const multiSelectButton = document.querySelector('#multi-select-button');
+            let isMultiSelect = false;
+            let selectedLinks = [];
 
-            // заполнение таблиц документами
+            multiSelectButton.onclick = (e) => {
+                if (isMultiSelect) {
+                    selectedLinks = [];
+                    multiLinsRequestButton.href = '';
+                    multiLinsRequestButton.id = '';
+                    multiLinsRequestButton.style.display = 'none';
+                    document.querySelectorAll(".request-row.selected").forEach(el => el.classList.remove('selected'))
+                }
 
-            const documentTemplate = (documentData) => (`
-                <div class="requests__item">
-                    <div class="request-row request-row_bold">
-                        <a class="request-row__link" href="${documentData.id}"
-                            id="${documentData.id}"></a>
-                        <div class="request-row__inner">
-                            <div class="request-row__header">
-                                <div class="request-row__title">
-                                    ${documentData.statusIcon ? `<div class="request-row__icon request-row__icon_${documentData.statusIcon}"></div>` : ''}
-                                    ${documentData.title}
-                                </div>
-                            </div>
-                            <div class="request-row__body">
-                                <div class="request-row__line">${documentData.createDate.text} ${documentData.createDate.date}</div>
-                                <div class="request-row__line">${documentData.updateDate.text} ${documentData.updateDate.date}</div>
-                            </div>
+                isMultiSelect = isMultiSelect ? false : true;
+                multiSelectButton.classList.toggle('active');
+                multiSelectButton.parentElement.parentElement.classList.toggle('multi-select');
+            }
+
+            const requestLinkClickHandler = (e) => {
+                if (isMultiSelect) {
+                    e.preventDefault();
+                    e.target.parentElement.classList.toggle('selected');
+                    selectedLinks.indexOf(e.target.id) === -1
+                        ? selectedLinks.push(e.target.id)
+                        : selectedLinks = selectedLinks.filter(link => link !== e.target.id)
+                    const selectedLinksString = selectedLinks.length ? selectedLinks.join(';') : '';
+                    multiLinsRequestButton.href = selectedLinksString;
+                    multiLinsRequestButton.id = selectedLinksString;
+                    multiLinsRequestButton.style.display = selectedLinksString ? 'block' : 'none';
+                }
+            }
+
+            const createDocument = (documentData, target) => {
+                const requests__item = document.createElement('div');
+                requests__item.className = 'requests__item';
+
+                const request_row = document.createElement('div');
+                request_row.className  = 'request-row request-row_bold';
+
+                const request_link = document.createElement('a');
+                request_link.className  = 'request-row__link';
+                request_link.href = documentData.id;
+                request_link.id = documentData.id;
+                if (target.id==='inbox-table_actual') {
+                    request_link.addEventListener('click', requestLinkClickHandler)
+                }
+
+                const request_inner = document.createElement('div');
+                request_inner.className  = 'request-row__inner';
+                request_inner.innerHTML = `
+                    <div class="request-row__header">
+                        <div class="request-row__title">
+                            ${documentData.statusIcon ? `<div class="request-row__icon request-row__icon_${documentData.statusIcon}"></div>` : ''}
+                            ${documentData.title}
                         </div>
                     </div>
-                </div>
-            `);
+                    <div class="request-row__body">
+                        <div class="request-row__line">${documentData.createDate.text} ${documentData.createDate.date}</div>
+                        <div class="request-row__line">${documentData.updateDate.text} ${documentData.updateDate.date}</div>
+                    </div>
+                `;
+                request_row.appendChild(request_link);
+                request_row.appendChild(request_inner);
+                requests__item.appendChild(request_row);
+                return requests__item
+            }
 
 
             const fillTable = (target, documents, page = 1, perPage = 5) => {
@@ -15853,7 +15945,7 @@
                     const visibleDocuments = documents.slice((perPage * (page - 1)), perPage * page);
 
                     // target.innerHTML = ""
-                    visibleDocuments.forEach(document => target.innerHTML += documentTemplate(document))
+                    visibleDocuments.forEach(document => target.appendChild(createDocument(document, target)))
 
                     const nextPageButtonWrapper = document.createElement('div');
                     const nextPageButton = document.createElement('button');
@@ -15889,12 +15981,11 @@
             fillTable(document.querySelector('#recent-table_outbox'), outboxDocuments.slice(0, 5))
 
             // заполенение во вкадке входящие (экран 2)
-            fillTable(document.querySelector('#outbox-table_actual'), inboxDocuments.actual, undefined, 30)
+            fillTable(document.querySelector('#inbox-table_actual'), inboxDocuments.actual, undefined, 30)
             // заполенение во вкадке входяшие (экран 2)
-            fillTable(document.querySelector('#outbox-table_history'), inboxDocuments.history, undefined, 30)
+            fillTable(document.querySelector('#inbox-table_history'), inboxDocuments.history, undefined, 30)
             // заполенение во вкадке исходящие (экран 3)
-            fillTable(document.querySelector('#inbox-table'), outboxDocuments, undefined, 30)
-
+            fillTable(document.querySelector('#outbox-table'), outboxDocuments, undefined, 30)
         })
 
     </script>
