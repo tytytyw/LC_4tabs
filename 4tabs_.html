@@ -15971,7 +15971,6 @@
                         return newDocumentData
                     })
                 }
-
                 isMultiSelect = isMultiSelect ? false : true;
                 multiSelectButton.classList.toggle('active');
                 multiSelectButton.parentElement.parentElement.classList.toggle('multi-select');
@@ -16066,7 +16065,7 @@
                     // вывод инфо о том, что таблица пустая
                     const emptyDocuments = document.createElement('p');
                     emptyDocuments.className = 'empty-documents'
-                    emptyDocuments.textContent = 'нет документов';
+                    emptyDocuments.textContent = target.getAttribute('search-active') ? 'нет документов удовлетворяющих поиску' : 'нет документов';
                     target.append(emptyDocuments)
                 }
             };
@@ -16118,6 +16117,7 @@
                         document.querySelector(`#${button.getAttribute('data-table-id')}`).innerHTML = '';
                         fillTables(`#${button.getAttribute('data-table-id')}`)
                     }
+                    e.target.closest(".section").querySelector(".requests__list").setAttribute('search-active', searchActive)
                 }
             });
 
