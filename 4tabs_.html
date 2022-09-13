@@ -263,7 +263,6 @@
 
         .section__header {
             position: relative;
-            margin-bottom: 8px
         }
 
         .section__title {
@@ -272,7 +271,8 @@
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
             font: 500 15px/18px Roboto, Arial, sans-serif;
-            color: rgba(0, 16, 83, .9)
+            color: rgba(0, 16, 83, .9);
+            margin-bottom: 8px;
         }
 
         .section__logo {
@@ -929,7 +929,7 @@
         .section.multi-select .request-row::after {
             content: '';
             border-radius: 50%;
-            border: 1px solid rgba(0,0,0,.3);
+            border: 1px solid rgba(0, 0, 0, .3);
             background-color: #fff;
             width: 12px;
             height: 12px;
@@ -1278,6 +1278,71 @@
         #multi-select-button.active::after {
             content: 'Отменить';
         }
+
+        .title__wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .title__wrapper .section__title {
+            margin: 0;
+        }
+
+        .search__input {
+            border: 1px solid #0aa9ff;
+            border-radius: 5px;
+            font-size: 14px;
+            padding: 8px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            width: 100%;
+            display: none
+        }
+
+        .search-enable+.search__input {
+            display: block;
+        }
+
+        .search__input:focus {
+            outline: none;
+            box-shadow: 0 0 0 1px #0aa9ff;
+        }
+
+        .search__icon {
+            position: relative;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            height: 18px;
+            width: 18px;
+            transition: background .3s ease;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4NCjxwYXRoIGZpbGw9IiNjY2Q0ZGEiIGQ9Ik0xNS41MDQgMTMuNjE2bC0zLjc5LTMuMjIzYy0wLjM5Mi0wLjM1My0wLjgxMS0wLjUxNC0xLjE0OS0wLjQ5OSAwLjg5NS0xLjA0OCAxLjQzNS0yLjQwNyAxLjQzNS0zLjg5MyAwLTMuMzE0LTIuNjg2LTYtNi02cy02IDIuNjg2LTYgNiAyLjY4NiA2IDYgNmMxLjQ4NiAwIDIuODQ1LTAuNTQgMy44OTMtMS40MzUtMC4wMTYgMC4zMzggMC4xNDYgMC43NTcgMC40OTkgMS4xNDlsMy4yMjMgMy43OWMwLjU1MiAwLjYxMyAxLjQ1MyAwLjY2NSAyLjAwMyAwLjExNXMwLjQ5OC0xLjQ1Mi0wLjExNS0yLjAwM3pNNiAxMGMtMi4yMDkgMC00LTEuNzkxLTQtNHMxLjc5MS00IDQtNCA0IDEuNzkxIDQgNC0xLjc5MSA0LTQgNHoiLz4NCjwvc3ZnPg==)
+        }
+
+        .search-enable .search__icon::after,
+        .search-enable .search__icon::before {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 10px;
+            height: 2px;
+            background: red;
+            top: 0;
+            right: -5px;
+            transform: rotate(-45deg);
+        }
+
+        .search-enable .search__icon::before {
+            transform: rotate(45deg);
+        }
+
+        .empty-documents {
+            font-size: 11px;
+            color: gray;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -1333,12 +1398,20 @@
                         <div class="app__section">
                             <div class="section">
                                 <div class="section__header">
-                                    <div class="section__title">На подпись</div>
+                                    <div class="title__wrapper">
+                                        <div class="section__title">На подпись</div>
+                                        <div class="search__icon" data-table-id="inbox-table_actual"></div>
+                                    </div>
+                                    <input type="text" value="" class="search__input"
+                                        data-table-id="inbox-table_actual">
                                 </div>
                                 <div class="button-wrapper buttons-wrapper">
-                                <button id="multi-select-button" class="button button_blue button_solid button_small button_multi-select"></button>
-                                <a class="button button_blue button_solid button_small button_multi-select send-multi-links">Подписать и отправить</a>
-                            </div>
+                                    <button id="multi-select-button"
+                                        class="button button_blue button_solid button_small button_multi-select"></button>
+                                    <a
+                                        class="button button_blue button_solid button_small button_multi-select send-multi-links">Подписать
+                                        и отправить</a>
+                                </div>
                                 <div class="section__box">
 
                                     <div class="requests">
@@ -1352,7 +1425,12 @@
                         <div class="app__section">
                             <div class="section">
                                 <div class="section__header">
-                                    <div class="section__title">История</div>
+                                    <div class="title__wrapper">
+                                        <div class="section__title">История</div>
+                                        <div class="search__icon" data-table-id="inbox-table_history"></div>
+                                    </div>
+                                    <input type="text" value="" class="search__input"
+                                        data-table-id="inbox-table_history">
                                 </div>
 
                                 <div class="section__box">
@@ -1376,7 +1454,11 @@
                         <div class="app__section">
                             <div class="section">
                                 <div class="section__header">
-                                    <div class="section__title">Все документы</div>
+                                    <div class="title__wrapper">
+                                        <div class="section__title">Все документы</div>
+                                        <div class="search__icon" data-table-id="outbox-table"></div>
+                                    </div>
+                                    <input type="text" value="" class="search__input" data-table-id="outbox-table">
                                 </div>
 
                                 <div class="section__box">
@@ -1575,7 +1657,7 @@
                     updateDate: {
                         text: 'Изменен статус:',
                         date: '26.08.2022'
-                    }
+                    },
                 },
                 {
                     id: 'id_2',
@@ -15718,7 +15800,8 @@
 
         // -------------------------------
         document.addEventListener("DOMContentLoaded", () => {
-            const navLinks = ["inbox-outbox", "inbox", "outbox", "profile"]
+            let inboxActualDocuments = inboxDocuments.actual;
+            const navLinks = ["inbox-outbox", "inbox", "outbox", "profile"];
 
             const menuLinks = document.querySelectorAll(".menu__item");
             menuLinks.forEach(item => {
@@ -15882,6 +15965,11 @@
                     multiLinsRequestButton.id = '';
                     multiLinsRequestButton.style.display = 'none';
                     document.querySelectorAll(".request-row.selected").forEach(el => el.classList.remove('selected'))
+                    inboxActualDocuments = inboxActualDocuments.map(documentData => {
+                        const newDocumentData = documentData;
+                        newDocumentData.selected = false;
+                        return newDocumentData
+                    })
                 }
 
                 isMultiSelect = isMultiSelect ? false : true;
@@ -15892,6 +15980,14 @@
             const requestLinkClickHandler = (e) => {
                 if (isMultiSelect) {
                     e.preventDefault();
+                    inboxActualDocuments = inboxActualDocuments.map(documentData => {
+                        if (documentData.id === e.target.id) {
+                            const newDocumentData = documentData;
+                            newDocumentData.selected = !newDocumentData.selected;
+                            return newDocumentData
+                        }
+                        return documentData
+                    })
                     e.target.parentElement.classList.toggle('selected');
                     selectedLinks.indexOf(e.target.id) === -1
                         ? selectedLinks.push(e.target.id)
@@ -15908,18 +16004,18 @@
                 requests__item.className = 'requests__item';
 
                 const request_row = document.createElement('div');
-                request_row.className  = 'request-row request-row_bold';
+                request_row.className = `request-row request-row_bold ${documentData.selected ? 'selected' : ''}`;
 
                 const request_link = document.createElement('a');
-                request_link.className  = 'request-row__link';
+                request_link.className = 'request-row__link';
                 request_link.href = documentData.id;
                 request_link.id = documentData.id;
-                if (target.id==='inbox-table_actual') {
+                if (target.id === 'inbox-table_actual') {
                     request_link.addEventListener('click', requestLinkClickHandler)
                 }
 
                 const request_inner = document.createElement('div');
-                request_inner.className  = 'request-row__inner';
+                request_inner.className = 'request-row__inner';
                 request_inner.innerHTML = `
                     <div class="request-row__header">
                         <div class="request-row__title">
@@ -15968,24 +16064,71 @@
                 }
                 if (!documents || documents.length === 0) {
                     // вывод инфо о том, что таблица пустая
-                    target.textContent = 'нет документов';
-                    target.style.fontSize = 11;
-                    target.style.color = 'gray';
-                    target.style.textAlign = 'center';
+                    const emptyDocuments = document.createElement('p');
+                    emptyDocuments.className = 'empty-documents'
+                    emptyDocuments.textContent = 'нет документов';
+                    target.append(emptyDocuments)
                 }
             };
 
-            // заполенение входящих во вкадке входящие-исходяшие (экран 1)
-            fillTable(document.querySelector('#recent-table_inbox'), inboxDocuments.actual.slice(0, 5))
-            // заполенение исходящих во вкадке входящие-исходяшие (экран 1)
-            fillTable(document.querySelector('#recent-table_outbox'), outboxDocuments.slice(0, 5))
+            const fillTables = (tableId, filter) => {
+                switch (tableId) {
+                    case '#recent-table_inbox':
+                        fillTable(document.querySelector(tableId), inboxDocuments.actual.slice(0, 5));
+                        break;
+                    case '#recent-table_outbox':
+                        fillTable(document.querySelector(tableId), outboxDocuments.slice(0, 5));
+                        break;
+                    case '#inbox-table_actual':
+                        fillTable(document.querySelector(tableId), inboxActualDocuments.filter(document => filter ? document.title.toLocaleLowerCase().indexOf(filter.toLocaleLowerCase()) > -1 : document), undefined, 30);
+                        break;
+                    case '#inbox-table_history':
+                        fillTable(document.querySelector(tableId), inboxDocuments.history.filter(document => filter ? document.title.toLocaleLowerCase().indexOf(filter.toLocaleLowerCase()) > -1 : document), undefined, 30);
+                        break;
+                    case '#outbox-table':
+                        fillTable(document.querySelector(tableId), outboxDocuments.filter(document => filter ? document.title.toLocaleLowerCase().indexOf(filter.toLocaleLowerCase()) > -1 : document), undefined, 30);
+                        break;
 
+                }
+            }
+            // заполенение входящих во вкадке входящие-исходяшие (экран 1)
+            fillTables('#recent-table_inbox')
+            // заполенение исходящих во вкадке входящие-исходяшие (экран 1)
+            fillTables('#recent-table_outbox')
             // заполенение во вкадке входящие (экран 2)
-            fillTable(document.querySelector('#inbox-table_actual'), inboxDocuments.actual, undefined, 30)
+            fillTables('#inbox-table_actual')
             // заполенение во вкадке входяшие (экран 2)
-            fillTable(document.querySelector('#inbox-table_history'), inboxDocuments.history, undefined, 30)
+            fillTables('#inbox-table_history')
             // заполенение во вкадке исходящие (экран 3)
-            fillTable(document.querySelector('#outbox-table'), outboxDocuments, undefined, 30)
+            fillTables('#outbox-table')
+
+
+            const searchButtons = document.querySelectorAll('.search__icon');
+            searchButtons.forEach(button => {
+                let searchActive = false;
+                button.onclick = (e) => {
+                    searchActive = searchActive ? false : true
+                    const parent = e.target.parentElement;
+                    parent.classList.toggle('search-enable');
+                    if (searchActive) {
+                        parent.nextElementSibling.focus();
+                        // document.querySelector(`#${button.getAttribute('data-table-id')}`).innerHTML = '';
+                        document.querySelector(`.search__input[data-table-id=${button.getAttribute('data-table-id')}]`).value = ''
+                    } else {
+                        document.querySelector(`#${button.getAttribute('data-table-id')}`).innerHTML = '';
+                        fillTables(`#${button.getAttribute('data-table-id')}`)
+                    }
+                }
+            });
+
+            const searchInputs = document.querySelectorAll('.search__input');
+            searchInputs.forEach(input => {
+                input.addEventListener('input', (e) => {
+                    document.querySelector(`#${input.getAttribute('data-table-id')}`).innerHTML = '';
+                    fillTables(`#${input.getAttribute('data-table-id')}`, e.target.value)
+                })
+            })
+
         })
 
     </script>
