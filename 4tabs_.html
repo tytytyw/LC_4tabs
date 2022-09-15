@@ -904,7 +904,8 @@
 
         .request-row {
             position: relative;
-            border-radius: inherit
+            border-radius: inherit;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .request-row_error {
@@ -929,16 +930,27 @@
         .section.multi-select .request-row::after {
             content: '';
             border-radius: 50%;
-            border: 1px solid rgba(0, 0, 0, .3);
+            border: 1px solid #192764;
             background-color: #fff;
-            width: 12px;
-            height: 12px;
-            margin-top: -6px;
-            right: 6px;
+            width: 14px;
+            height: 14px;
+            transform: translateY(-50%);
+            margin-top: 0;
         }
 
-        .section.multi-select .request-row.selected::after {
-            background-color: #0aa9ff;
+        .section.multi-select .request-row.selected::before {
+            content: "";
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KPHBhdGggZmlsbD0iIzE5Mjc2NCIgZD0iTTEzLjUgMmwtNy41IDcuNS0zLjUtMy41LTIuNSAyLjUgNiA2IDEwLTEweiI+PC9wYXRoPgo8L3N2Zz4K");
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            margin-top: -2px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            z-index: 2;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -3px
         }
 
         .request-row__link {
@@ -948,7 +960,8 @@
             bottom: 0;
             top: 0;
             opacity: 0;
-            font-size: 0
+            font-size: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .request-row__inner {
@@ -957,6 +970,7 @@
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             width: calc(100% - 5px);
+            -webkit-tap-highlight-color: transparent;
         }
 
         .request-row__icon {
@@ -1266,17 +1280,14 @@
             margin-bottom: 8px;
         }
 
-        #multi-select-button::after {
-            content: 'Выбрать несколько'
-        }
-
-        #multi-select-button.active {
+        #multi-select-cancel {
             background-color: #fb4e4e;
             border-color: #fb4e4e;
+            display: none;
         }
 
-        #multi-select-button.active::after {
-            content: 'Отменить';
+        .section.multi-select #multi-select-cancel {
+            display: block
         }
 
         .title__wrapper {
@@ -1347,6 +1358,25 @@
             color: gray;
             text-align: center;
         }
+
+        #multi-select-start {
+            display: flex;
+            align-items: center;
+        }
+
+        #multi-select-start span {
+            white-space: nowrap;
+        }
+
+        .multi-select-icon {
+            width: 18px;
+            height: 18px;
+            margin: 0 9px;
+        }
+
+        .section.multi-select .multi-select-icon path {
+            fill: #0aa9ff
+        }
     </style>
 </head>
 
@@ -1403,15 +1433,29 @@
                             <div class="section">
                                 <div class="section__header">
                                     <div class="title__wrapper">
-                                        <div class="section__title">На подпись</div>
+                                        <div class="section__title">
+                                            <div id="multi-select-start">
+                                                <span>На подпись</span>
+                                                <svg class="multi-select-icon" version="1.1" viewBox="0 0 24 24">
+                                                    <g id="icon">
+                                                        <path
+                                                            d="M5.528,10.33c-0.21,0.18-0.235,0.495-0.057,0.705l7.082,8.314c0.096,0.111,0.234,0.176,0.381,0.176c0.005,0,0.01,0,0.016,0   c0.151-0.005,0.293-0.078,0.384-0.199L23.899,5.275c0.166-0.221,0.122-0.534-0.099-0.7c-0.222-0.166-0.535-0.124-0.7,0.099   L12.91,18.226l-6.677-7.839C6.053,10.176,5.736,10.151,5.528,10.33z" />
+                                                        <path
+                                                            d="M12.028,13.945l6.519-8.67c0.166-0.221,0.122-0.534-0.099-0.7c-0.222-0.167-0.535-0.12-0.7,0.099l-6.519,8.67   c-0.166,0.221-0.122,0.534,0.099,0.7c0.091,0.068,0.196,0.101,0.301,0.101C11.78,14.145,11.931,14.075,12.028,13.945z" />
+                                                        <path
+                                                            d="M0.176,10.33c-0.21,0.18-0.235,0.495-0.057,0.705l7.082,8.314c0.096,0.111,0.234,0.176,0.381,0.176c0.005,0,0.01,0,0.016,0   c0.151-0.005,0.293-0.078,0.384-0.199l0.967-1.285c0.166-0.221,0.122-0.534-0.099-0.7c-0.219-0.166-0.535-0.123-0.7,0.099   l-0.592,0.786l-6.677-7.839C0.7,10.176,0.385,10.151,0.176,10.33z" />
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                        </div>
                                         <div class="search__icon" data-table-id="inbox-table_actual"></div>
                                     </div>
                                     <input type="text" value="" class="search__input" data-table-id="inbox-table_actual"
                                         placeholder="введите название или дату">
                                 </div>
                                 <div class="button-wrapper buttons-wrapper">
-                                    <button id="multi-select-button"
-                                        class="button button_blue button_solid button_small button_multi-select"></button>
+                                    <button id="multi-select-cancel"
+                                        class="button button_blue button_solid button_small button_multi-select">Отменить</button>
                                     <a
                                         class="button button_blue button_solid button_small button_multi-select send-multi-links">Подписать
                                         и отправить</a>
@@ -15959,26 +16003,29 @@
 
             const multiLinsRequestButton = document.querySelector('.send-multi-links');
             multiLinsRequestButton.style.display = 'none';
-            const multiSelectButton = document.querySelector('#multi-select-button');
+            const multiSelectStart = document.querySelector('#multi-select-start');
+            const multiSelectEnd = document.querySelector('#multi-select-cancel');
             let isMultiSelect = false;
             let selectedLinks = [];
 
-            multiSelectButton.onclick = (e) => {
-                if (isMultiSelect) {
-                    selectedLinks = [];
-                    multiLinsRequestButton.href = '';
-                    multiLinsRequestButton.id = '';
-                    multiLinsRequestButton.style.display = 'none';
-                    document.querySelectorAll(".request-row.selected").forEach(el => el.classList.remove('selected'))
-                    inboxActualDocuments = inboxActualDocuments.map(documentData => {
-                        const newDocumentData = documentData;
-                        newDocumentData.selected = false;
-                        return newDocumentData
-                    })
-                }
-                isMultiSelect = isMultiSelect ? false : true;
-                multiSelectButton.classList.toggle('active');
-                multiSelectButton.parentElement.parentElement.classList.toggle('multi-select');
+            multiSelectStart.onclick = (e) => {
+                multiSelectEnd.closest(".section").classList.add('multi-select');
+                isMultiSelect = true;
+            }
+
+            multiSelectEnd.onclick = (e) => {
+                multiSelectEnd.closest(".section").classList.remove('multi-select');
+                isMultiSelect = false;
+                selectedLinks = [];
+                multiLinsRequestButton.href = '';
+                multiLinsRequestButton.id = '';
+                multiLinsRequestButton.style.display = 'none';
+                document.querySelectorAll(".request-row.selected").forEach(el => el.classList.remove('selected'))
+                inboxActualDocuments = inboxActualDocuments.map(documentData => {
+                    const newDocumentData = documentData;
+                    newDocumentData.selected = false;
+                    return newDocumentData
+                })
             }
 
             const requestLinkClickHandler = (e) => {
