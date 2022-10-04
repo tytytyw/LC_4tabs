@@ -311,7 +311,8 @@
             -ms-text-size-adjust: 100%;
             font-size: 12px;
             line-height: 14px;
-            color: #0aa9ff
+            color: #0aa9ff;
+            z-index: 2;
         }
 
         .section__box {
@@ -962,6 +963,7 @@
             opacity: 0;
             font-size: 0;
             -webkit-tap-highlight-color: transparent;
+            z-index: 2;
         }
 
         .request-row__inner {
@@ -1693,14 +1695,14 @@
 
         const inboxDocuments = {
             actual: [
-                { ID_ШаблонСтрокиМакетаВходящиеНаПодпись }
+                {ID_ШаблонСтрокиМакетаВходящиеНаПодпись}
             ],
             history: [
-                { ID_ШаблонСтрокиМакетаВходящиеИстория }
+                {ID_ШаблонСтрокиМакетаВходящиеИстория}
             ]
         }
         const outboxDocuments = [
-            { ID_ШаблонСтрокиМакетаИсходящие }
+            {ID_ШаблонСтрокиМакетаИсходящие}
         ];
 
         // -------------------------------
