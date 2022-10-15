@@ -1040,7 +1040,8 @@
             bottom: 0;
             background: -webkit-gradient(linear, left bottom, left top, color-stop(50%, #f9fafc), to(rgba(249, 250, 252, 0)));
             background: -o-linear-gradient(bottom, #f9fafc 50%, rgba(249, 250, 252, 0) 100%);
-            background: linear-gradient(to top, #f9fafc 50%, rgba(249, 250, 252, 0) 100%)
+            background: linear-gradient(to top, #f9fafc 50%, rgba(249, 250, 252, 0) 100%);
+            z-index: 99
         }
 
         .app__menu {
@@ -1684,7 +1685,7 @@
         // outbox = исходящие
         // profile = профиль
         // TODO:
-        let activeTab = "inbox";
+        let activeTab = "inbox-outbox";
 
 
         // Массивы документов
