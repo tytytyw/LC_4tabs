@@ -1728,7 +1728,9 @@
         // -------------------------------
         document.addEventListener("DOMContentLoaded", () => {
 
-            document.querySelector('#body').style.height = window.innerHeight + 'px'
+            if (document && document.querySelector('#body') && document.querySelector('#body').style && window && window.innerHeight) {
+                document.querySelector('#body').style.height = window.innerHeight + 'px'
+            }
 
 
             let inboxActualDocuments = inboxDocuments.actual;
