@@ -1715,23 +1715,23 @@
 
         const inboxDocuments = {
             actual: [
-                {ID_ШаблонСтрокиМакетаВходящиеНаПодпись}
+                // {ID_ШаблонСтрокиМакетаВходящиеНаПодпись}
             ],
             history: [
-                {ID_ШаблонСтрокиМакетаВходящиеИстория}
+                // {ID_ШаблонСтрокиМакетаВходящиеИстория}
             ]
         }
         const outboxDocuments = [
-            {ID_ШаблонСтрокиМакетаИсходящие}
+            // {ID_ШаблонСтрокиМакетаИсходящие}
         ];
 
         // -------------------------------
         document.addEventListener("DOMContentLoaded", () => {
 
-            if (document && document.querySelector('#body') && document.querySelector('#body').style && window && window.innerHeight) {
-                document.querySelector('#body').style.height = window.innerHeight + 'px'
-            }
+            const windowHeight = screen.height
+            const windowWidth = screen.width
 
+            document.querySelector('#body').style.height = windowHeight + 'px'
 
             let inboxActualDocuments = inboxDocuments.actual;
             const navLinks = ["inbox-outbox", "inbox", "outbox", "profile"];
@@ -1756,8 +1756,6 @@
             const refreshRef = document.querySelector('.refresh-page')
             const returnBackRef = document.querySelector('.return-back')
             const forwardRef = document.querySelector('.forward')
-            const windowHeight = screen.height
-            const windowWidth = screen.width
             let startY = null;
             let startX = null;
             let moveDirection = null;
